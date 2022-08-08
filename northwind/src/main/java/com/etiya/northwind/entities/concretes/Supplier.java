@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,4 +25,7 @@ public class Supplier {
 
     @Column(name= "contact_name")
     private String  contactName;
+
+    @OneToMany(mappedBy = "supplier")
+    private List<Product> products ;
 }

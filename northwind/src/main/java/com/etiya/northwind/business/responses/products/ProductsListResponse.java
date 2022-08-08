@@ -28,4 +28,6 @@ public class ProductsListResponse {
     private int categoryId;
 
     private String categoryName;
+
+    private int supplierId;
 }

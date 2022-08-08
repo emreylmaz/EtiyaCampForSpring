@@ -5,22 +5,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-/*@Entity
+@Entity
+@Table(name = "order_details")
 @Data
-//@JsonIgnoreProperties({"hibernateLazyInitializer","handler","maintenances","products"})
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "order_details")*/
-public class OrderDetails {
+@IdClass(OrderDetailid.class)
+public class OrderDetail implements Serializable {
 
-    /*@Id
-    @Column(name="order_id")
-    private int orderId;
+    private static final long serialVersionUID = 1L;
 
-
-    @Column(name="product_id")
+    @Id
     @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @Column(name = "unit_price")
@@ -29,7 +33,6 @@ public class OrderDetails {
     @Column(name = "quantity")
     private double quantity;
 
-*/
 
 
 
