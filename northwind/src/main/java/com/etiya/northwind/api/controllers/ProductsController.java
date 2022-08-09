@@ -5,7 +5,8 @@ import com.etiya.northwind.business.abstracts.ProductService;
 import com.etiya.northwind.business.request.products.CreateProductRequest;
 import com.etiya.northwind.business.request.products.DeleteProductRequest;
 import com.etiya.northwind.business.request.products.UpdateProductRequest;
-import com.etiya.northwind.business.responses.products.ProductsListResponse;
+import com.etiya.northwind.business.responses.products.ListProductsResponse;
+import com.etiya.northwind.business.responses.products.ReadProductResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,26 +23,32 @@ public class ProductsController {
     }
 
     @GetMapping("/getall")
-    public List<ProductsListResponse> getAll(){
+    public List<ListProductsResponse> getAll(){
         return this.productService.getAll();
     }
 
     @PostMapping("/add")
-    public void add(CreateProductRequest productAddRequest){
+    public void add(@RequestBody CreateProductRequest productAddRequest){
         productService.add(productAddRequest);
 
     }
 
     @PostMapping("/update")
-    public void update(UpdateProductRequest updateProductRequest){
+    public void update(@RequestBody UpdateProductRequest updateProductRequest){
+
         productService.update(updateProductRequest);
 
     }
 
-    @DeleteMapping("delete/{customerId}")
+    @DeleteMapping("/delete")
     public void delete(DeleteProductRequest deleteProductRequest){
         productService.delete(deleteProductRequest);
 
+    }
+
+    @GetMapping("/getbyid")
+    public ReadProductResponse findById(@RequestParam int id) {
+        return this.productService.findById(id);
     }
 
 

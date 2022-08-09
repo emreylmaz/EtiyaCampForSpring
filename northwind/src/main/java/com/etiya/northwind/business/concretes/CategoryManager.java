@@ -2,14 +2,12 @@ package com.etiya.northwind.business.concretes;
 
 import com.etiya.northwind.business.abstracts.CategoryService;
 import com.etiya.northwind.business.responses.categories.CategoryListResponse;
-import com.etiya.northwind.business.responses.customers.CustomerListResponse;
 import com.etiya.northwind.core.utilities.mapping.ModelMapperService;
 import com.etiya.northwind.dataAccess.abstracts.CategoryRepository;
 import com.etiya.northwind.entities.concretes.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

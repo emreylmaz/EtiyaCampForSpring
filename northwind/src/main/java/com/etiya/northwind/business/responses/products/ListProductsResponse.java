@@ -1,17 +1,14 @@
 package com.etiya.northwind.business.responses.products;
 
-import com.etiya.northwind.entities.concretes.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductsListResponse {
+public class ListProductsResponse {
 
 
     private int productId;

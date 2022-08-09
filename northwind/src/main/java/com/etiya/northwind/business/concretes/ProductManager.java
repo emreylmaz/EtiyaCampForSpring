@@ -4,7 +4,8 @@ import com.etiya.northwind.business.abstracts.ProductService;
 import com.etiya.northwind.business.request.products.CreateProductRequest;
 import com.etiya.northwind.business.request.products.DeleteProductRequest;
 import com.etiya.northwind.business.request.products.UpdateProductRequest;
-import com.etiya.northwind.business.responses.products.ProductsListResponse;
+import com.etiya.northwind.business.responses.products.ListProductsResponse;
+import com.etiya.northwind.business.responses.products.ReadProductResponse;
 import com.etiya.northwind.core.utilities.mapping.ModelMapperService;
 import com.etiya.northwind.dataAccess.abstracts.ProductRepository;
 import com.etiya.northwind.entities.concretes.Product;
@@ -16,25 +17,27 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductManager implements ProductService {
-    @Autowired
+
     private ProductRepository productRepository;
     private ModelMapperService modelMapperService;
-
-    public ProductManager(ProductRepository productRepository) {
+    @Autowired
+    public ProductManager(ProductRepository productRepository, ModelMapperService modelMapperService) {
         this.productRepository = productRepository;
         this.modelMapperService = modelMapperService;
     }
 
     @Override
-    public List<ProductsListResponse> getAll() {
+    public List<ListProductsResponse> getAll() {
         List<Product> result = this.productRepository.findAll();
-        List<ProductsListResponse> response = result.stream()
+        List<ListProductsResponse> response = result.stream()
                 .map(product -> this.modelMapperService.forResponse()
-                        .map(result,ProductsListResponse.class) ).collect(Collectors.toList());
+                        .map(result, ListProductsResponse.class) ).collect(Collectors.toList());
 
 
         return response;
     }
+
+
 
     @Override
     public void add(CreateProductRequest createProductRequest) {
@@ -54,6 +57,14 @@ public class ProductManager implements ProductService {
     public void delete(DeleteProductRequest deleteProductRequest) {
         Product product = this.modelMapperService.forRequest().map(deleteProductRequest,Product.class);
         this.productRepository.delete(product);
+
+    }
+
+    @Override
+    public ReadProductResponse findById(int id) {
+        Product product = this.productRepository.findById(id).get();
+        ReadProductResponse response = this.modelMapperService.forResponse().map(product, ReadProductResponse.class);
+        return response;
 
     }
 
